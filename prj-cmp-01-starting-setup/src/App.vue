@@ -13,27 +13,7 @@ export default {
     TheResource,
   },
   data() {
-    return {
-      storedResources: [
-        {
-          id: 'youtube-resource',
-          title: 'Youtube educational content',
-          description: 'This is a youtube resource',
-          link: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
-        },
-        {
-          id: 'google-learning',
-          title: 'Searching for Google Learning',
-          description: 'This is a google learning resource',
-          link: 'https://www.google.com/search?q=google+learning',
-        },
-      ],
-    };
-  },
-  provide(){
-    return {
-      resources: this.storedResources,
-    }
+    return {};
   }
 };
 </script>
