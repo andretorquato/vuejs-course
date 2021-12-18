@@ -53,12 +53,23 @@ export default {
   provide() {
     return {
       resources: this.storedResources,
+      addResource: this.addResource
     };
   },
   methods: {
     setSelectedResource(resource) {
       this.selectedResource = resource;
     },
+    addResource(title, description, link){
+      const newResource = {
+        id: new Date().toISOString(),
+        title: title,
+        description,
+        link,
+      }
+      this.storedResources.unshift(newResource);
+      this.selectedResource = 'stored-resource';
+    }
   },
 };
 </script>
