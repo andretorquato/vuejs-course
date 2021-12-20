@@ -11,7 +11,9 @@
       >Add Resources</base-button
     >
   </base-card>
-  <component :is="selectedResource"></component>
+  <keep-alive>
+    <component :is="selectedResource"></component>
+  </keep-alive>
 </template>
 
 <script>
@@ -53,22 +55,27 @@ export default {
   provide() {
     return {
       resources: this.storedResources,
-      addResource: this.addResource
+      addResource: this.addResource,
+      deleteResource: this.removeResource,
     };
   },
   methods: {
     setSelectedResource(resource) {
       this.selectedResource = resource;
     },
-    addResource(title, description, link){
+    addResource(title, description, link) {
       const newResource = {
         id: new Date().toISOString(),
-        title: title,
+        title,
         description,
         link,
-      }
+      };
       this.storedResources.unshift(newResource);
       this.selectedResource = 'stored-resource';
+    },
+    removeResource(resId){
+      const resIndex = this.storedResources.findIndex(res => res.id === resId);
+      this.storedResources.splice(resIndex, 1);
     }
   },
 };

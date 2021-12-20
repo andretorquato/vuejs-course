@@ -2,6 +2,7 @@
   <ul>
     <learning-resource
       v-for="res in resources"
+      :id="res.id"
       :key="res.id"
       :description="res.description"
       :title="res.title"
