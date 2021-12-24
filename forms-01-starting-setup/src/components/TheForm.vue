@@ -51,6 +51,9 @@
       </div>
     </div>
     <div class="form-control">
+      <rating-control></rating-control>
+    </div>
+    <div class="form-control">
       <h2>How do you learn?</h2>
       <div>
         <input
@@ -85,7 +88,7 @@
     </div>
     <div>
       <input type="checkbox" name="term" id="term" v-model="confirm" />
-      <label for="term">Accept term</label>
+      <label for="term">Agree to terms of use?</label>
     </div>
     <div>
       <button>Save Data</button>
@@ -94,7 +97,11 @@
 </template>
 
 <script>
-export default {
+import RatingControl from './RatingControl.vue';
+export default {  
+  components: {
+    RatingControl
+  },
   data() {
     return {
       userName: '',
