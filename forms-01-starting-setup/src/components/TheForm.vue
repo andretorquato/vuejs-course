@@ -2,7 +2,8 @@
   <form @submit.prevent="submitData">
     <div class="form-control">
       <label for="user-name">Your Name</label>
-      <input id="user-name" name="user-name" type="text" v-model="userName" />
+      <input id="user-name" name="user-name" type="text" v-model.trim="userName" @blur="validateInput"/>
+      <p v-if="validName == 'invalid'">Input name invalid</p>
     </div>
     <div class="form-control">
       <label for="age">Your Age (Years)</label>
@@ -102,6 +103,7 @@ export default {
       interest: [],
       how: '',
       confirm: false,
+      validName: 'pending',
     };
   },
   methods: {
@@ -121,6 +123,13 @@ export default {
       this.interest = [];
       this.how = '';
       this.confirm = false;
+    },
+    validateInput() {      
+      if(this.userName == ''){
+        this.validName = 'invalid';
+      } else {
+        this.validName = 'valid';
+      }
     },
   },
 };
