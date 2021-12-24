@@ -51,7 +51,7 @@
       </div>
     </div>
     <div class="form-control">
-      <rating-control></rating-control>
+      <rating-control v-model="rating"></rating-control>
     </div>
     <div class="form-control">
       <h2>How do you learn?</h2>
@@ -107,6 +107,7 @@ export default {
       userName: '',
       userAge: '',
       referrer: 'wom',
+      rating: null,
       interest: [],
       how: '',
       confirm: false,
@@ -122,11 +123,13 @@ export default {
         interest: this.interest,
         how: this.how,
         confirm: this.confirm,
+        rating: this.rating,
       };
       console.log(value);
       this.userName = '';
       this.userAge = '';
-      this.referrer = '';
+      this.referrer = 'wom';
+      this.rating = null;
       this.interest = [];
       this.how = '';
       this.confirm = false;

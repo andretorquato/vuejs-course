@@ -2,35 +2,32 @@
   <ul>
     <li
       @click="setActiveOption('poor')"
-      :class="{ active: activeOption == 'poor' }"
+      :class="{ active: modelValue == 'poor' }"
     >
       <button type="button">Poor</button>
     </li>
     <li
-      @click="setActiveOption('medium')"
-      :class="{ active: activeOption == 'medium' }"
+      @click="setActiveOption('average')"
+      :class="{ active: modelValue == 'average' }"
     >
-      <button type="button">Medium</button>
+      <button type="button">Average</button>
     </li>
     <li
-      @click="setActiveOption('good')"
-      :class="{ active: activeOption == 'good' }"
+      @click="setActiveOption('great')"
+      :class="{ active: modelValue == 'great' }"
     >
-      <button type="button">Good</button>
+      <button type="button">Great</button>
     </li>
   </ul>
 </template>
 
 <script>
 export default {
-  data() {
-    return {
-      activeOption: null,
-    };
-  },
+  props: ['modelValue'],
+  emits: ['update:modelValue'],
   methods: {
     setActiveOption(option) {
-      this.activeOption = option;
+      this.$emit('update:modelValue', option);
     },
   },
 };
