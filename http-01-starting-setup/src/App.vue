@@ -1,5 +1,5 @@
 <template>
-  <learning-survey @survey-submit="storeSurvey"></learning-survey>
+  <learning-survey></learning-survey>
   <user-experiences :results="savedSurveyResults"></user-experiences>
 </template>
 

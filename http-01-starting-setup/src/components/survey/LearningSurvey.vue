@@ -46,7 +46,6 @@ export default {
       invalidInput: false,
     };
   },
-  emits: ['survey-submit'],
   methods: {
     submitSurvey() {
       if (this.enteredName === '' || !this.chosenRating) {
@@ -54,10 +53,13 @@ export default {
         return;
       }
       this.invalidInput = false;
-
-      this.$emit('survey-submit', {
-        userName: this.enteredName,
-        rating: this.chosenRating,
+  debugger
+      fetch(`${process.env.VUE_APP_FIREBASE_API}`, {
+        method: 'POST',
+        body: JSON.stringify({
+          userName: this.enteredName,
+          rating: this.chosenRating,
+        }),
       });
 
       this.enteredName = '';
