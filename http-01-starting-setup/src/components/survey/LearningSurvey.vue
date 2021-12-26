@@ -53,7 +53,6 @@ export default {
         return;
       }
       this.invalidInput = false;
-  debugger
       fetch(`${process.env.VUE_APP_FIREBASE_API}`, {
         method: 'POST',
         body: JSON.stringify({

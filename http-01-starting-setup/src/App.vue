@@ -1,6 +1,6 @@
 <template>
   <learning-survey></learning-survey>
-  <user-experiences :results="savedSurveyResults"></user-experiences>
+  <user-experiences></user-experiences>
 </template>
 
 <script>
@@ -11,22 +11,6 @@ export default {
   components: {
     LearningSurvey,
     UserExperiences,
-  },
-  data() {
-    return {
-      savedSurveyResults: [],
-    };
-  },
-  methods: {
-    storeSurvey(surveyData) {
-      const surveyResult = {
-        name: surveyData.userName,
-        rating: surveyData.rating,
-        id: new Date().toISOString(),
-      };
-      this.savedSurveyResults.push(surveyResult);
-      console.log(surveyResult);
-    },
   },
 };
 </script>
