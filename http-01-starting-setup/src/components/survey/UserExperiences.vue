@@ -8,10 +8,13 @@
         >
       </div>
       <p v-if="isLoading">Loading...</p>
-      <p v-else-if="!isLoading && (!results || results.length === 0)">
+      <p v-else-if="!isLoading && !error &&(!results || results.length === 0)">
         No experiences found. Start adding some survey results first.
       </p>
-      <ul v-else-if="!isLoading && results && results.length > 0">
+      <p v-else-if="!isLoading && error && (results && results.length === 0)">
+        {{ error }}
+      </p>
+      <ul v-else>
         <survey-result
           v-for="result in results"
           :key="result.id"
@@ -33,7 +36,8 @@ export default {
   data() {
     return {
       results: [],
-      isLoading: false
+      isLoading: false,
+      error: null,
     };
   },
   methods: {
@@ -41,6 +45,7 @@ export default {
       this.isLoading = true;
       fetch(`${process.env.VUE_APP_FIREBASE_API}`)
         .then((response) => {
+          this.error = null;
           if (response.ok) {
             return response.json();
           }
@@ -56,12 +61,16 @@ export default {
             });
           }
           this.results = results;
+        })
+        .catch(() => {
+          this.isLoading = false;
+          this.error = 'Failed to fetch data - please try again later';
         });
     },
   },
-  mounted(){
+  mounted() {
     this.loadExperiences();
-  }
+  },
 };
 </script>
 

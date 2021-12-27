@@ -9,7 +9,13 @@
         </div>
         <h3>My learning experience was ...</h3>
         <div class="form-control">
-          <input type="radio" id="rating-poor" value="poor" name="rating" v-model="chosenRating" />
+          <input
+            type="radio"
+            id="rating-poor"
+            value="poor"
+            name="rating"
+            v-model="chosenRating"
+          />
           <label for="rating-poor">Poor</label>
         </div>
         <div class="form-control">
@@ -23,15 +29,22 @@
           <label for="rating-average">Average</label>
         </div>
         <div class="form-control">
-          <input type="radio" id="rating-great" value="great" name="rating" v-model="chosenRating" />
+          <input
+            type="radio"
+            id="rating-great"
+            value="great"
+            name="rating"
+            v-model="chosenRating"
+          />
           <label for="rating-great">Great</label>
         </div>
-        <p
-          v-if="invalidInput"
-        >One or more input fields are invalid. Please check your provided data.</p>
+        <p v-if="invalidInput">
+          One or more input fields are invalid. Please check your provided data.
+        </p>
         <div>
           <base-button>Submit</base-button>
         </div>
+        <p v-if="error">{{ error }}</p>
       </form>
     </base-card>
   </section>
@@ -44,6 +57,7 @@ export default {
       enteredName: '',
       chosenRating: null,
       invalidInput: false,
+      error: null,
     };
   },
   methods: {
@@ -59,10 +73,19 @@ export default {
           userName: this.enteredName,
           rating: this.chosenRating,
         }),
-      });
-
-      this.enteredName = '';
-      this.chosenRating = null;
+      })
+        .then((response) => {
+          this.error = null;
+          if (response.ok) {
+            this.enteredName = '';
+            this.chosenRating = null;
+          } else {
+            throw new Error('Could not save to data.');
+          }
+        })
+        .catch((error) => {
+          this.error = error.message;
+        });
     },
   },
 };
