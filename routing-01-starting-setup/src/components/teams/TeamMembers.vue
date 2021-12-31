@@ -34,7 +34,6 @@ export default {
     console.log(this.users);
     for(let memberId of members){
       const selectedUser = this.users.find(user => user.id === memberId);
-      console.log(selectedUser);
       selectedMembers.push(selectedUser);
     }
     this.teamName = selectedTeam.name;
