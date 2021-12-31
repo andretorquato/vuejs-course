@@ -19,14 +19,26 @@ export default {
   components: {
     UserItem
   },
+  inject: ['teams', 'users'],
   data() {
     return {
       teamName: 'Test',
-      members: [
-        { id: 'u1', fullName: 'Max Schwarz', role: 'Engineer' },
-        { id: 'u2', fullName: 'Max Schwarz', role: 'Engineer' },
-      ],
+      members: [],
     };
+  },
+  created(){
+    const teamId = this.$route.params.teamId;
+    const selectedTeam = this.teams.find(team => team.id === teamId);
+    const selectedMembers = [];
+    const members = selectedTeam.members;
+    console.log(this.users);
+    for(let memberId of members){
+      const selectedUser = this.users.find(user => user.id === memberId);
+      console.log(selectedUser);
+      selectedMembers.push(selectedUser);
+    }
+    this.teamName = selectedTeam.name;
+    this.members = selectedMembers;
   },
 };
 </script>
