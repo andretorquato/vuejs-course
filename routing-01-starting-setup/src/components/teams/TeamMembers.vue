@@ -46,6 +46,10 @@ export default {
     // const query = this.$route.query;
     // console.log(query);
   },
+  beforeRouteUpdate(to, from, next){
+    console.log("BeforeRouteUpdate");
+    next();
+  },
   watch: {
     teamId(newValue){
       this.loadTeamMembers(newValue);
