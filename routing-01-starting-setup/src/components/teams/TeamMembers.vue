@@ -43,8 +43,8 @@ export default {
   },
   created() {
     this.loadTeamMembers(this.teamId);
-    const query = this.$route.query;
-    console.log(query);
+    // const query = this.$route.query;
+    // console.log(query);
   },
   watch: {
     teamId(newValue){
