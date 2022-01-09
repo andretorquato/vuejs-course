@@ -1,13 +1,14 @@
 <template>
-  <h2>{{ count }}</h2>
+  <h2>{{ finalCount }}</h2>
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
 export default {
   computed:{
-    count() {
-      return this.$store.getters.finalCount;
-    },
+    ...mapGetters({
+      finalCount: 'finalCount'
+    })
   },
 };
 </script>
