@@ -29,7 +29,7 @@ export default {
     ...mapGetters(['isLogged'])
   },
   methods: {
-    ...mapActions(['increment', 'increase']),
+    ...mapActions('numbers', ['increment', 'increase']),
   },
 };
 </script>
