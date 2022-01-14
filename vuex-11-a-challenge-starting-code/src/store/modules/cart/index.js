@@ -1,9 +1,7 @@
 const cartModule = {
 	namespaced: true,
 	state() {
-		return {
-			test: 'Is working'
-		}
+		return {}
 	},
 	mutations: {},
 	getters: {},
