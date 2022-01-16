@@ -23,7 +23,7 @@ export default {
     ProductItem,
   },
   computed: {
-    ...mapGetters(['products']),
+    ...mapGetters('product',['products']),
   }
 };
 </script>

@@ -13,41 +13,17 @@ export default {
   data() {
     return {
       isLoggedIn: false,
-      cart: { items: [], total: 0, qty: 0 },
     };
   },
   provide() {
     return {
       isLoggedIn: this.isLoggedIn,
-      cart: this.cart,
-      addProductToCart: this.addProductToCart,
       removeProductFromCart: this.removeProductFromCart,
       login: this.login,
       logout: this.logout,
     };
   },
   methods: {
-    addProductToCart(productData) {
-      const productInCartIndex = this.cart.items.findIndex(
-        (ci) => ci.productId === productData.id
-      );
-
-      if (productInCartIndex >= 0) {
-        this.cart.items[productInCartIndex].qty++;
-      } else {
-        const newItem = {
-          productId: productData.id,
-          title: productData.title,
-          image: productData.image,
-          price: productData.price,
-          qty: 1,
-        };
-        this.cart.items.push(newItem);
-      }
-      this.cart.qty++;
-      this.cart.total += productData.price;
-    },
-
     removeProductFromCart(prodId) {
       const productInCartIndex = this.cart.items.findIndex(
         (cartItem) => cartItem.productId === prodId
