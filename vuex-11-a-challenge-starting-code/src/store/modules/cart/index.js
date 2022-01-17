@@ -1,4 +1,6 @@
 import cartGetters from './getters';
+import cartMutations from './mutations';
+
 const cartModule = {
   namespaced: true,
   state() {
@@ -8,34 +10,9 @@ const cartModule = {
       qty: 0,
     };
   },
-  mutations: {
-    addProductToCart(state, payload) {
-      const productInCartIndex = this.cart.items.findIndex(
-        (ci) => ci.productId === payload.id
-      );
-
-      if (productInCartIndex >= 0) {
-        state.items[productInCartIndex].qty++;
-      } else {
-        const newItem = {
-          productId: payload.id,
-          title: payload.title,
-          image: payload.image,
-          price: payload.price,
-          qty: 1,
-        };
-        state.items.push(newItem);
-      }
-      state.qty++;
-      state.total += payload.price;
-    },
-  },
+  mutations: cartMutations,
   getters: cartGetters,
-  actions: {
-    addProductToCart(context, productData) {
-      context.commit('addProductToCart', productData);
-    },
-  },
+  actions: {},
 };
 
 export default cartModule;

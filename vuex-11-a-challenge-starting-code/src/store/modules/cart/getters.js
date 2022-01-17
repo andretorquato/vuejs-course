@@ -3,7 +3,7 @@ export default {
 		return state.items
 	},
 	cartTotal(state) {
-		return state.total
+		return state.total.toFixed(2)
 	},
 	cartQty(state) {
 		return state.qty

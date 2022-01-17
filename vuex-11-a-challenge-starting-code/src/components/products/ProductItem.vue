@@ -24,12 +24,12 @@ export default {
   methods: {
     addToCart() {
       
-      this.$store.dispatch('cart/addProductToCart',{
+      this.$store.commit('cart/addProductToCart',{
         id: this.id,
         image: this.image,
         title: this.title,
         price: this.price,
-      });
+      }, { root: true });
     },
   },
 };
