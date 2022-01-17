@@ -19,4 +19,13 @@ export default {
     state.qty++;
     state.total += payload.price;
   },
+  removeProductFromCart(state, payload) {
+    const productInCartIndex = state.items.findIndex(
+      (cartItem) => cartItem.productId === payload.prodId
+    );
+    const prodData = state.items[productInCartIndex];
+    state.items.splice(productInCartIndex, 1);
+    state.qty -= prodData.qty;
+    state.total -= prodData.price * prodData.qty;
+  }
 };
