@@ -1,11 +1,11 @@
 export default {
-	cartItems(state) {
+	products(state) {
 		return state.items
 	},
-	cartTotal(state) {
+	total(state) {
 		return state.total.toFixed(2)
 	},
-	cartQty(state) {
+	quantity(state) {
 		return state.qty
 	},
 }

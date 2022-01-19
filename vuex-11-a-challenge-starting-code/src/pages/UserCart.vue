@@ -2,17 +2,17 @@
   <section>
     <h2>Your Cart</h2>
     <h3>
-      Total Amount: <base-badge mode="elegant">${{ cartTotal }}</base-badge>
+      Total Amount: <base-badge mode="elegant">${{ total }}</base-badge>
     </h3>
     <ul>
       <cart-item
-        v-for="item in cartItems"
-        :key="item.productId"
-        :prod-id="item.productId"
-        :title="item.title"
-        :image="item.image"
-        :price="item.price"
-        :qty="item.qty"
+        v-for="product in products"
+        :key="product.productId"
+        :prod-id="product.productId"
+        :title="product.title"
+        :image="product.image"
+        :price="product.price"
+        :qty="product.qty"
       ></cart-item>
     </ul>
   </section>
@@ -28,8 +28,8 @@ export default {
   },
   computed: {
     ...mapGetters('cart', {
-      cartItems: 'cartItems',
-      cartTotal: 'cartTotal',
+      products: 'products',
+      total: 'total',
     }),
   },
 };

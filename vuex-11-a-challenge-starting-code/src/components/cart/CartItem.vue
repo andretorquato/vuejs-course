@@ -33,7 +33,7 @@ export default {
     remove() {
       this.$store.commit(
         'cart/removeProductFromCart',
-        { prodId: this.prodId },
+        { productId: this.prodId },
         { root: true }
       );
     },
