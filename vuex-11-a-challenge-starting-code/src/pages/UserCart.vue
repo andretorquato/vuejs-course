@@ -2,11 +2,11 @@
   <section>
     <h2>Your Cart</h2>
     <h3>
-      Total Amount: <base-badge mode="elegant">${{ total }}</base-badge>
+      Total Amount: <base-badge mode="elegant">${{ cartTotal }}</base-badge>
     </h3>
     <ul>
       <cart-item
-        v-for="product in products"
+        v-for="product in cartItems"
         :key="product.productId"
         :prod-id="product.productId"
         :title="product.title"
@@ -28,8 +28,8 @@ export default {
   },
   computed: {
     ...mapGetters('cart', {
-      products: 'products',
-      total: 'total',
+      cartItems: 'cartItems',
+      cartTotal: 'cartTotal',
     }),
   },
 };

@@ -1,5 +1,6 @@
 import cartGetters from './getters';
 import cartMutations from './mutations';
+import cartActions from './actions';
 
 const cartModule = {
   namespaced: true,
@@ -12,7 +13,7 @@ const cartModule = {
   },
   mutations: cartMutations,
   getters: cartGetters,
-  actions: {},
+  actions: cartActions,
 };
 
 export default cartModule;
