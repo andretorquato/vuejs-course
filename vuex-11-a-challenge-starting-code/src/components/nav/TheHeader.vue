@@ -27,10 +27,20 @@
 <script>
 import { mapGetters } from 'vuex';
 export default {
-  inject: ['isLoggedIn', 'login', 'logout'],
   computed: {
     ...mapGetters('cart', ['cartQuantity']),
-  }
+    isLoggedIn() {
+      return this.$store.getters.isLoggedIn;
+    },
+  },
+  methods: {
+    login() {
+      this.$store.dispatch('login');
+    },
+    logout() {
+      this.$store.dispatch('logout');
+    },
+  },
 };
 </script>
 
