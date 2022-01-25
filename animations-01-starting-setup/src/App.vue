@@ -1,12 +1,18 @@
 <template>
   <div class="container">
-    <div class="block" :class="{animation: isAnimate}"></div>
+    <div class="block" :class="{ animation: isAnimate }"></div>
     <button @click="onAnimate">Animate</button>
   </div>
-  <base-modal @close="hideDialog" v-if="dialogIsVisible">
-    <p>This is a test dialog!</p>
-    <button @click="hideDialog">Close it!</button>
-  </base-modal>
+   <div class="container">
+    <transition>
+      <p v-if="isVisibleParagraph">Show paragraph</p>
+    </transition>
+     <button @click="showParagraph">Show</button>
+  </div>  
+    <base-modal @close="hideDialog" v-if="dialogIsVisible">
+      <p>This is a test dialog!</p>
+      <button @click="hideDialog">Close it!</button>
+    </base-modal>
   <div class="container">
     <button @click="showDialog">Show Dialog</button>
   </div>
@@ -15,14 +21,18 @@
 <script>
 export default {
   data() {
-    return { 
+    return {
       isAnimate: false,
-      dialogIsVisible: false 
-      };
+      isVisibleParagraph: false,
+      dialogIsVisible: false,
+    };
   },
   methods: {
-    onAnimate(){
+    onAnimate() {
       this.isAnimate = !this.isAnimate;
+    },
+    showParagraph(){
+      this.isVisibleParagraph = !this.isVisibleParagraph;
     },
     showDialog() {
       this.dialogIsVisible = true;
@@ -63,7 +73,7 @@ button:active {
   height: 8rem;
   background-color: #290033;
   margin-bottom: 2rem;
-  transition: transform 1s ease-in-out;
+  /* transition: transform 1s ease-in-out; */
 }
 .container {
   max-width: 40rem;
@@ -77,6 +87,48 @@ button:active {
   border-radius: 12px;
 }
 .animation {
-  transform: translateX(-100px);
+  /* transform: translateX(-100px); */
+  animation: boo-peep 5s forwards;
+}
+@keyframes boo-peep {
+  0% {
+    transform: scale(0.5);
+  }
+  25% {
+    transform: scale(0);
+  }
+  50% {
+    transform: translateX(-100px) scale(0.5);
+  }
+  60% {
+    transform: translateX(-100px) scale(1);
+  }
+  75% {
+    transform: translateX(-100px) scale(0.5);
+  }
+  80% {
+    transform: translateX(-100px) scale(1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+.v-enter-to {
+  transform: scale(0.5);
+}
+.v-enter-active {
+  transition: transform 1s ease-in-out;
+}
+.v-enter-from{
+  transform: scale(1);
+}
+.v-leave-from {
+  transform: scale(1);
+}
+.v-leave-active {
+  transition: transform 1s ease-in-out;
+}
+.v-leave-to {
+  transform: scale(0.5);
 }
 </style>
