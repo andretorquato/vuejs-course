@@ -4,12 +4,12 @@
     <button @click="onAnimate">Animate</button>
   </div>
    <div class="container">
-    <transition>
+    <transition name="para">
       <p v-if="isVisibleParagraph">Show paragraph</p>
     </transition>
      <button @click="showParagraph">Show</button>
   </div>  
-    <base-modal @close="hideDialog" v-if="dialogIsVisible">
+    <base-modal @close="hideDialog" :open="dialogIsVisible">
       <p>This is a test dialog!</p>
       <button @click="hideDialog">Close it!</button>
     </base-modal>
@@ -113,22 +113,25 @@ button:active {
     transform: scale(1);
   }
 }
-.v-enter-to {
-  transform: scale(0.5);
+.para-enter-to {
+  /* transform: scale(0.5); */
+  animation: boo-peep 5s forwards;
 }
-.v-enter-active {
-  transition: transform 1s ease-in-out;
+.para-enter-active {
+  /* transition: transform 1s ease-in-out; */
 }
-.v-enter-from{
-  transform: scale(1);
+.para-enter-from{
+  /* transform: scale(1); */
 }
-.v-leave-from {
-  transform: scale(1);
+.para-leave-from {
+  /* transform: scale(1); */
+  animation: boo-peep 5s forwards;
 }
-.v-leave-active {
-  transition: transform 1s ease-in-out;
+.para-leave-active {
+  /* transition: transform 1s ease-in-out; */
 }
-.v-leave-to {
-  transform: scale(0.5);
+.para-leave-to {
+  /* transform: scale(0.5); */
+  animation: boo-peep 5s forwards;
 }
 </style>
