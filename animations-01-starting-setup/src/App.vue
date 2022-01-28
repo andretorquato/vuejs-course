@@ -4,15 +4,23 @@
     <button @click="onAnimate">Animate</button>
   </div>
   <div class="container">
-    <transition name="para">
+    <transition
+      @before-enter="beforeEnter"
+      @enter="enter"
+      @after-enter="afterEnter"
+      @before-leave="beforeLeave"
+      @leave="leave"
+      @after-leave="afterLeave"
+      name="para"
+    >
       <p v-if="isVisibleParagraph">Show paragraph</p>
     </transition>
     <button @click="showParagraph">Show</button>
   </div>
   <div class="container">
     <transition name="fade-button" mode="out-in">
-    <button v-if="showUsers" @click="toggleUser">Show Users</button
-    ><button v-else @click="toggleUser">Hide Users</button>
+      <button v-if="showUsers" @click="toggleUser">Show Users</button
+      ><button v-else @click="toggleUser">Hide Users</button>
     </transition>
   </div>
   <base-modal @close="hideDialog" :open="dialogIsVisible">
@@ -35,6 +43,26 @@ export default {
     };
   },
   methods: {
+    beforeEnter(){
+      console.log('before enter');
+    },
+    enter(el){
+      console.log('enter');
+      console.dir(el);
+    },
+    afterEnter(){
+      console.log('after enter');
+    },
+    beforeLeave(){
+      console.log('before leave');
+    },
+    leave(el){
+      console.log('leave');
+      console.dir(el);
+    },
+    afterLeave(){
+      console.log('after leave');
+    },
     toggleUser() {
       this.showUsers = !this.showUsers;
     },
@@ -145,7 +173,7 @@ button:active {
   animation: boo-peep 5s forwards;
 }
 
-.fade-button-enter-to{
+.fade-button-enter-to {
   opacity: 0;
 }
 .fade-button-enter-active {
@@ -163,5 +191,4 @@ button:active {
 .fade-button-leave-active {
   transition: opacity 1s ease-out;
 }
-
 </style>
