@@ -11,6 +11,8 @@
       @before-leave="beforeLeave"
       @leave="leave"
       @after-leave="afterLeave"
+      @enter-cancelled="enterCancelled"
+      @leave-cancelled="leaveCancelled"
       name="para"
     >
       <p v-if="isVisibleParagraph">Show paragraph</p>
@@ -40,15 +42,35 @@ export default {
       isVisibleParagraph: false,
       dialogIsVisible: false,
       showUsers: true,
+      enterInterval: null,
+      leaveInterval: null,
     };
   },
   methods: {
-    beforeEnter(){
-      console.log('before enter');
+    enterCancelled(){
+      console.log('enter cancelled');
+      clearInterval(this.enterInterval);
     },
-    enter(el){
+    leaveCancelled(){
+      console.log('leave cancelled');
+      clearInterval(this.leaveInterval);
+    },
+    beforeEnter(el){
+      console.log('before enter');
+      el.style.opacity = 0;
+    },
+    enter(el, done){
       console.log('enter');
-      console.dir(el);
+      let count = 1;
+      this.enterInterval = setInterval(() => {
+        el.style.opacity = count * 0.1;
+        count++;
+        if(count >= 100){
+          clearInterval(this.enterInterval);
+          done();
+        }
+      }, 20);
+      
     },
     afterEnter(){
       console.log('after enter');
@@ -56,9 +78,18 @@ export default {
     beforeLeave(){
       console.log('before leave');
     },
-    leave(el){
+    leave(el, done){
       console.log('leave');
-      console.dir(el);
+      let count = 50;
+      this.leaveInterval = setInterval(() => {
+        el.style.opacity = count * 0.1;
+        el.style.transform = `translateY(-${count}px)`;
+        count--;
+        if(count <= 0){
+          clearInterval(this.leaveInterval);
+          done();
+        }
+      }, 100);
     },
     afterLeave(){
       console.log('after leave');
@@ -150,27 +181,6 @@ button:active {
   100% {
     transform: scale(1);
   }
-}
-.para-enter-to {
-  /* transform: scale(0.5); */
-  animation: boo-peep 5s forwards;
-}
-.para-enter-active {
-  /* transition: transform 1s ease-in-out; */
-}
-.para-enter-from {
-  /* transform: scale(1); */
-}
-.para-leave-from {
-  /* transform: scale(1); */
-  animation: boo-peep 5s forwards;
-}
-.para-leave-active {
-  /* transition: transform 1s ease-in-out; */
-}
-.para-leave-to {
-  /* transform: scale(0.5); */
-  animation: boo-peep 5s forwards;
 }
 
 .fade-button-enter-to {
