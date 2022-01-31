@@ -1,7 +1,7 @@
 <template>
-  <ul>
+  <transition-group tag="ul" name="users-list">
     <li v-for="user in users" :key="user" @click="removeUser(user)">{{ user }}</li>
-  </ul>
+  </transition-group>
   <div><button @click="addUser">ADD</button><input ref="userName" type="text" /></div>
 </template>
 <script>
@@ -49,5 +49,28 @@ li:hover {
 ul {
 	list-style: none;
   margin: 0;
+}
+.users-list-enter-from {
+	opacity: 0;
+	transform: translateX(-30px);
+}
+.users-list-enter-to{
+	opacity: 1;
+	transform: translateX(0px);
+}
+.users-list-enter-active {
+	transition: all 1s ease-out;
+}
+
+.users-list-leave-from {
+	opacity: 1;
+	transform: translateX(0px);
+}
+.users-list-leave-to{
+	opacity: 0;
+	transform: translateX(30px);
+}
+.users-list-leave-active {
+	transition: all 0.5s ease-in;
 }
 </style>
