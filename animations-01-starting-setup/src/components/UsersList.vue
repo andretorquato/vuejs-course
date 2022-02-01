@@ -71,6 +71,11 @@ ul {
 	transform: translateX(30px);
 }
 .users-list-leave-active {
+	transition: all 1s ease-in;
+	position: absolute;
+}
+
+.user-list-move {
 	transition: all 0.5s ease-in;
 }
 </style>
