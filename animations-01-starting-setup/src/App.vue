@@ -1,50 +1,13 @@
 <template>
-<div class="container">
-  <users-list></users-list>
-</div>
-  <div class="container">
-    <div class="block" :class="{ animation: isAnimate }"></div>
-    <button @click="onAnimate">Animate</button>
-  </div>
-  <div class="container">
-    <transition
-      :css="false"
-      @before-enter="beforeEnter"
-      @enter="enter"
-      @after-enter="afterEnter"
-      @before-leave="beforeLeave"
-      @leave="leave"
-      @after-leave="afterLeave"
-      @enter-cancelled="enterCancelled"
-      @leave-cancelled="leaveCancelled"
-      name="para"
-    >
-      <p v-if="isVisibleParagraph">Show paragraph</p>
+  <router-view v-slot="slotProps">
+    <transition name="route" mode="out-in">
+      <component :is="slotProps.Component"></component>
     </transition>
-    <button @click="showParagraph">Show</button>
-  </div>
-  <div class="container">
-    <transition name="fade-button" mode="out-in">
-      <button v-if="showUsers" @click="toggleUser">Show Users</button
-      ><button v-else @click="toggleUser">Hide Users</button>
-    </transition>
-  </div>
-  <base-modal @close="hideDialog" :open="dialogIsVisible">
-    <p>This is a test dialog!</p>
-    <button @click="hideDialog">Close it!</button>
-  </base-modal>
-  <div class="container">
-    <button @click="showDialog">Show Dialog</button>
-  </div>
+  </router-view>
 </template>  
 
 <script>
-import UsersList from './components/UsersList.vue';
-
 export default {
-  components: {
-    UsersList,
-  },
   data() {
     return {
       isAnimate: false,
@@ -56,51 +19,50 @@ export default {
     };
   },
   methods: {
-    enterCancelled(){
+    enterCancelled() {
       console.log('enter cancelled');
       clearInterval(this.enterInterval);
     },
-    leaveCancelled(){
+    leaveCancelled() {
       console.log('leave cancelled');
       clearInterval(this.leaveInterval);
     },
-    beforeEnter(el){
+    beforeEnter(el) {
       console.log('before enter');
       el.style.opacity = 0;
     },
-    enter(el, done){
+    enter(el, done) {
       console.log('enter');
       let count = 1;
       this.enterInterval = setInterval(() => {
         el.style.opacity = count * 0.1;
         count++;
-        if(count >= 100){
+        if (count >= 100) {
           clearInterval(this.enterInterval);
           done();
         }
       }, 20);
-      
     },
-    afterEnter(){
+    afterEnter() {
       console.log('after enter');
     },
-    beforeLeave(){
+    beforeLeave() {
       console.log('before leave');
     },
-    leave(el, done){
+    leave(el, done) {
       console.log('leave');
       let count = 50;
       this.leaveInterval = setInterval(() => {
         el.style.opacity = count * 0.1;
         el.style.transform = `translateY(-${count}px)`;
         count--;
-        if(count <= 0){
+        if (count <= 0) {
           clearInterval(this.leaveInterval);
           done();
         }
       }, 100);
     },
-    afterLeave(){
+    afterLeave() {
       console.log('after leave');
     },
     toggleUser() {
@@ -209,5 +171,64 @@ button:active {
 }
 .fade-button-leave-active {
   transition: opacity 1s ease-out;
+}
+.route-enter-active {
+  -webkit-animation: slide-in-left 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94)
+    both;
+  animation: slide-in-left 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+}
+.route-leave-active {
+  -webkit-animation: slide-in-right 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) reverse
+    backwards;
+  animation: slide-in-right 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) reverse backwards;
+}
+
+@-webkit-keyframes slide-in-left {
+  0% {
+    -webkit-transform: translateX(-1000px);
+    transform: translateX(-1000px);
+    opacity: 0;
+  }
+  100% {
+    -webkit-transform: translateX(0);
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+@keyframes slide-in-left {
+  0% {
+    -webkit-transform: translateX(-1000px);
+    transform: translateX(-1000px);
+    opacity: 0;
+  }
+  100% {
+    -webkit-transform: translateX(0);
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+@-webkit-keyframes slide-in-right {
+  0% {
+    -webkit-transform: translateX(1000px);
+    transform: translateX(1000px);
+    opacity: 0;
+  }
+  100% {
+    -webkit-transform: translateX(0);
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+@keyframes slide-in-right {
+  0% {
+    -webkit-transform: translateX(1000px);
+    transform: translateX(1000px);
+    opacity: 0;
+  }
+  100% {
+    -webkit-transform: translateX(0);
+    transform: translateX(0);
+    opacity: 1;
+  }
 }
 </style>

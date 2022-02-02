@@ -76,6 +76,6 @@ ul {
 }
 
 .user-list-move {
-	transition: all 0.5s ease-in;
+	transition: all 0.8s ease-in;
 }
 </style>
