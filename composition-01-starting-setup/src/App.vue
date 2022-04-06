@@ -2,6 +2,7 @@
   <section class="container">
     <h2>{{ usrName }}</h2>
     <h2>{{ usrAge }}</h2>
+    <button @click="changeAge" class="change-age">Change</button>
   </section>
 </template>
 
@@ -24,8 +25,13 @@ export default {
     }, 2000);
 
     const { name, age } = toRefs(user);
+
+    function changeAge() {
+      // userAge.value++;
+      user.age++;
+    }
     // return { userName, userAge }
-    return { user, usrName: name, usrAge: age }
+    return { user, usrName: name, usrAge: age, changeAge }
   }
 };
 </script>
