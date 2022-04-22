@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import { reactive, toRefs, ref, computed } from 'vue';
+import { reactive, toRefs, ref, computed, watch } from 'vue';
 export default {
   setup() {
     // const userName = ref('André Torquato')
@@ -31,6 +31,11 @@ export default {
       user.name = 'Só André';
       user.age = 26;
     }, 2000);
+
+    watch(age, (newValue, oldValue) => {
+      console.log(`oldValue: ${oldValue}`);
+      console.log(`newValue: ${newValue}`);
+    });
 
     function changeAge() {
       // userAge.value++;
